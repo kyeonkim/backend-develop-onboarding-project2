@@ -8,10 +8,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        ConfigModule.forRoot({}),
-        JwtModule.register({}),
-      ],
+      imports: [ConfigModule.forRoot({}), JwtModule.register({})],
       providers: [AuthService],
     }).compile();
 
