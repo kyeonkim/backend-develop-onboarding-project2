@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './domain/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ResponseUserDto } from './dto/response-user.dto';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<ResponseUserDto> {
     const { username, password, nickname } = createUserDto;
 
     // Username 중복 체크
@@ -40,6 +41,8 @@ export class UserService {
       role: 'ROLE_USER',
     });
 
-    return this.userRepository.save(user);
+    const savedUser = await this.userRepository.save(user);
+
+    return ResponseUserDto.fromEntity(savedUser);
   }
 }
