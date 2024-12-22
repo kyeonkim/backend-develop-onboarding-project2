@@ -10,7 +10,9 @@ export class AuthService {
   ) {}
 
   generateAccessToken(payload: object): string {
-    const accessTokenSecret = this.configService.get<string>('ACCESS_TOKEN_SECRET');
+    const accessTokenSecret = this.configService.get<string>(
+      'ACCESS_TOKEN_SECRET',
+    );
     return this.jwtService.sign(payload, {
       secret: accessTokenSecret,
       expiresIn: '1m',
@@ -18,7 +20,9 @@ export class AuthService {
   }
 
   generateRefreshToken(payload: object): string {
-    const refreshTokenSecret = this.configService.get<string>('REFRESH_TOKEN_SECRET');
+    const refreshTokenSecret = this.configService.get<string>(
+      'REFRESH_TOKEN_SECRET',
+    );
     return this.jwtService.sign(payload, {
       secret: refreshTokenSecret,
       expiresIn: '1h',
