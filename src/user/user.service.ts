@@ -45,4 +45,8 @@ export class UserService {
 
     return ResponseUserDto.fromEntity(savedUser);
   }
+
+  async findByUsername(username: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { username } });
+  }
 }
